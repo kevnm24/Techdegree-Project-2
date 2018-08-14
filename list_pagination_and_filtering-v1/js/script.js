@@ -5,7 +5,6 @@ FSJS project 2 - List Filter and Pagination
 
 // Add variables that store DOM elements you will need to reference and/or manipulate
 const studentList = document.querySelectorAll('.student-item');
-const mainDiv = document.querySelector('div');
 
 // Create a function to hide all of the items in the list excpet for the ten you want to show
 // Tip: Keep in mind that with a list of 54 studetns, the last page will only display four
@@ -26,13 +25,11 @@ function button() {
 const pageSize = 10;
 const countStudents = studentList.length;
 const pageCount = Math.ceil(countStudents / pageSize);
-let buttons = document.createElement('buttons');
-buttons = document.getElementsByClassName('pagination')
-buttons = '';
 for (let i = 1; i <= pageCount; i += 1) {
-  buttons.textContent = '<li><a class="active" href ="#">' + i + '</a></li>';
-  return buttons;
-  mainDiv.appendChild(buttons);
+  const pagination = document.createElement('pagination');
+  pagination.innerHTML = '<ul><li><a class="active" href ="#">' + i + '</a></li></ul>';
+  const div = document.getElementsByTagName('div')[0];
+  div.appendChild(pagination);
 }
 }
 showStudents();
