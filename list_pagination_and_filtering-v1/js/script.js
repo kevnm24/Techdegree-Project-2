@@ -30,9 +30,9 @@ let buttons = document.createElement('buttons');
 buttons = document.getElementsByClassName('pagination')
 buttons = '';
 for (let i = 1; i <= pageCount; i += 1) {
-  buttons += '<li><a class="active" href ="#">' + i + '</a></li>';
+  buttons.textContent = '<li><a class="active" href ="#">' + i + '</a></li>';
   return buttons;
-  mainDiv.append(buttons);
+  mainDiv.appendChild(buttons);
 }
 }
 showStudents();
