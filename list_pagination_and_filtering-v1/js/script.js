@@ -27,6 +27,12 @@ function showStudents(b) {
     studentList[i].style.display = 'block';
   }
 }
+
+function showTen() {
+  if (true) {
+
+  }
+}
 // Create and append the pagination links - Creating a function that can do this is a good approach
 function button() {
 for (let b = 1; b <= pageCount; b += 1) {
@@ -37,11 +43,12 @@ for (let b = 1; b <= pageCount; b += 1) {
   liList.innerHTML = '<a href="#"> '+ [b] +' </a></li>';
   liList.addEventListener('click', (e) =>{
     hideStudents();
-    if (b < pageSize * pageCount ) {
+    if (b < (pageSize * pageCount)) {
       hideStudents();
       showStudents(b);
-      const aList = document.getElementsByTagName('a');
-      aList.remove('current');
+    } if (liList.style.display === 'block') {
+      var x = document.getElementsByClass('student-item');
+      x.remove(x.current);
     }
   })
 }
