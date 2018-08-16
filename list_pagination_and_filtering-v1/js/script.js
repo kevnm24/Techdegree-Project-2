@@ -4,55 +4,64 @@ FSJS project 2 - List Filter and Pagination
 ******************************************/
 
 // Add variables that store DOM elements you will need to reference and/or manipulate
-const studentList = document.querySelectorAll('.student-item');
-const mainDiv = document.getElementsByTagName('div')[0];
-const pagination = document.createElement('div');
-pagination.classList.add('pagination');
-const ulList = document.createElement('ul');
-const li = document.querySelectorAll('ulList');
+const studentAmount = document.querySelectorAll('.student-item');
 const pageSize = 10;
-const countStudents = studentList.length;
-const pageCount = Math.ceil(countStudents / pageSize);
+// this will provide us with the correct amount of pages
+const pageCount = Math.ceil(studentAmount.length / pageSize);
+// created new elements to add to function later
+const div = document.createElement('div');
+// this gets current div from html
+const getDiv = document.getElementsByClassName('page')[0];
+// created new elements to add to function later
+const newDiv = document.createElement('div');
+const newUl = document.createElement('ul');
 // Create a function to hide all of the items in the list excpet for the ten you want to show
 // Tip: Keep in mind that with a list of 54 studetns, the last page will only display four
-function hideStudents() {
+const hideStudents = (studentList) => {
+  studentList = studentAmount;
   for (let i = 0; i < studentList.length; i += 1) {
     studentList[i].style.display = 'none';
     }
   }
-hideStudents();
-
-function showStudents(b) {
-  for (let i = 0; i < (pageSize * b); i += 1) {
-    studentList[i].style.display = 'block';
-  }
-}
-
-function showTen() {
-  if (true) {
-
+// this function will show the right amount of students corresponding with their page number
+const showStudents = (pageNumber, studentList) => {
+  hideStudents();
+  let endCount = pageNumber * pageSize;
+  let startCount = endCount - (pageSize - 1);
+  for (let i = 0; i < studentList.length; i += 1) {
+    if (i <= endCount && i >= startCount) {
+      studentList[i].style.display = 'block';
+    }
   }
 }
 // Create and append the pagination links - Creating a function that can do this is a good approach
-function button() {
-for (let b = 1; b <= pageCount; b += 1) {
-  const liList = document.createElement('li');
-  mainDiv.appendChild(pagination);
-  pagination.appendChild(ulList);
-  ulList.appendChild(liList);
-  liList.innerHTML = '<a href="#"> '+ [b] +' </a></li>';
-  liList.addEventListener('click', (e) =>{
-    hideStudents();
-    if (b < (pageSize * pageCount)) {
-      hideStudents();
-      showStudents(b);
-    } if (liList.style.display === 'block') {
-      var x = document.getElementsByClass('student-item');
-      x.remove(x.current);
-    }
-  })
-}
-}
-button();
+const appendLink = (studentList) => {
+  newDiv.classList.add('pagination');
+  getDiv.appendChild(newDiv);
+  newDiv.appendChild(newUl);
+  for (let i = 0; i < pageCount; i += 1) {
+    const newLi = document.createElement('li');
+    newUl.appendChild(newLi);
+    const newAnchor = document.createElement('a');
+    newAnchor.href = '#';
+    newAnchor.textContent = i + 1;
+    newLi.appendChild(newAnchor);
+// selects all newly made anchor elements
+    const activeAnchor = document.querySelectorAll('a');
+//this will set the first name to a clas name active
+    activeAnchor[0].className = 'active';
 // Add functionality to the pagination buttons so that they show and hide the correct items
 // Tip: If you created a function above to show/hide list items, it could be helpful here
+    newDiv.addEventListener('click', (e) =>{
+      e.preventDefault();
+      const button = event.target.textContent;
+      showStudents(button, studentList);
+      for (let i = 0; i < activeAnchor.length; i += 1) {
+        activeAnchor[i].classList.remove('active');
+        e.target.classList.add('active');
+      }
+  });
+}
+};
+showStudents(1, studentAmount);
+appendLink(studentAmount);
