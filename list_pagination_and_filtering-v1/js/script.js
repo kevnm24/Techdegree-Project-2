@@ -26,10 +26,8 @@ const hideStudents = (studentList) => {
 // this function will show the right amount of students corresponding with their page number
 const showStudents = (pageNumber, studentList) => {
   hideStudents();
-  let endCount = pageNumber * pageSize;
-  let startCount = endCount - (pageSize - 1);
-  for (let i = 0; i < studentList.length; i += 1) {
-    if (i <= endCount && i >= startCount) {
+  for (let i = 0; i <= studentList.length; i += 1) {
+   if (i >= pageSize * (pageNumber - 1) && i < pageSize * pageNumber) {
       studentList[i].style.display = 'block';
     }
   }
@@ -53,7 +51,6 @@ const appendLink = (studentList) => {
 // Add functionality to the pagination buttons so that they show and hide the correct items
 // Tip: If you created a function above to show/hide list items, it could be helpful here
     newDiv.addEventListener('click', (e) =>{
-      e.preventDefault();
       const button = event.target.textContent;
       showStudents(button, studentList);
       for (let i = 0; i < activeAnchor.length; i += 1) {
