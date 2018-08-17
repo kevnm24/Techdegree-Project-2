@@ -27,7 +27,7 @@ const hideStudents = (studentList) => {
 const showStudents = (pageNumber, studentList) => {
   hideStudents();
   for (let i = 0; i < studentList.length; i += 1) {
-   if (i >= 10 * (pageNumber - 1) && i < 10 * pageNumber) {
+   if (i >= pageSize * (pageNumber - 1) && i < pageSize * pageNumber) {
       studentList[i].style.display = 'block';
     } else if (i > studentList) {
       studentList[i].style.display = 'none';
